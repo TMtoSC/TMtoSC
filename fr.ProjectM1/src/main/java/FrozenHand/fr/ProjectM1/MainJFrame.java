@@ -8,6 +8,13 @@ import java.io.BufferedWriter;
 import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -50,6 +57,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Enregistrer");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Traduire");
@@ -76,18 +88,10 @@ public class MainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        File f = new File("C:\\Users\\Public\\Desktop\\t.txt");
-        try {
-            f.createNewFile();
-            BufferedWriter b = new BufferedWriter(new FileWriter(f));
-            b.write("t");
-            b.close();
-        }
-        catch(Exception e){
-            e.toString();
-        }
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) 
+    {//GEN-FIRST:event_jMenu1MouseClicked
         jFileChooser1.setVisible(true);
+        jFileChooser1.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = jFileChooser1.showDialog(this,"Ouvrir");
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -98,6 +102,31 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenu1MouseClicked
 
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        
+    	jFileChooser1.setVisible(true);
+    	//jFileChooser1.setFileSelectionMode(JFileChooser.CUSTOM_DIALOG);
+
+        int returnVal = jFileChooser1.showDialog(this,"Enregistrer");
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser1.getSelectedFile();
+            //System.out.println(file.getPath());
+           // try boolean res = file.createNewFile();
+        
+    	
+    	
+	    	List<String> lines = Arrays.asList("The first line", "The second line", selectedFile.getName());
+			 Path path = Paths.get(file.getPath());
+			 try {
+				Files.write(path, lines, Charset.forName("UTF-8"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+    	
+    }
+    
     /**
      * @param args the command line arguments
      */
