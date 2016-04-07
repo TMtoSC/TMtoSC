@@ -1,4 +1,14 @@
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+
+import TM.HamstersAPI;;
+
 public class Main {
 
 	
@@ -39,9 +49,9 @@ public class Main {
         
     	TaskModel taskModel = new TaskModel(frame.getFile());
 		 StateChart stateChart = new StateChart();
-		
-		
-		
+		 
+		 
+		 HamstersAPI api = new HamstersAPI(taskModel.getName());
 		 Translate trans = new Translate(taskModel, stateChart);
         
     }
